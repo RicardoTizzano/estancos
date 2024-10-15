@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar Máquina</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin: 20px 0;
+            font-size: 24px;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .maquina {
+            margin: 20px;
+            text-align: center;
+        }
+
+        img {
+            width: 150px; /* Ajusta el tamaño de las imágenes según sea necesario */
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .maquina-number {
+            margin-top: 5px; /* Espacio entre la imagen y el texto */
+            font-weight: bold;
+        }
+
+        a {
+            text-decoration: none; /* Quitar el subrayado de los enlaces */
+            color: inherit; /* Mantener el color del texto como el del contenido */
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            display: none; /* Ocultar inicialmente */
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Selecciona una Máquina Expendedora</h1>
+    <div class="gallery">
+        <div class="maquina">
+            <a href="dashboard_machine.html?maquina=1">
+                <img src="static/maquina.jpg" alt="Máquina 1">
+                <div class="maquina-number">Máquina Nº 1</div>
+            </a>
+        </div>
+        <div class="maquina">
+            <a href="dashboard_machine.html?maquina=2">
+                <img src="static/maquina.jpg" alt="Máquina 2">
+                <div class="maquina-number">Máquina Nº 2</div>
+            </a>
+        </div>
+        <div class="maquina">
+            <a href="dashboard_machine.html?maquina=3">
+                <img src="static/maquina.jpg" alt="Máquina 3">
+                <div class="maquina-number">Máquina Nº 3</div>
+            </a>
+        </div>
+        <div class="maquina">
+            <a href="dashboard_machine.html?maquina=4">
+                <img src="static/maquina.jpg" alt="Máquina 4">
+                <div class="maquina-number">Máquina Nº 4</div>
+            </a>
+        </div>
+        <div class="maquina">
+            <a href="dashboard_machine.html?maquina=5">
+                <img src="static/maquina.jpg" alt="Máquina 5">
+                <div class="maquina-number">Máquina Nº 5</div>
+            </a>
+        </div>
+        <div class="maquina">
+            <a href="dashboard_machine.html?maquina=6">
+                <img src="static/maquina.jpg" alt="Máquina 6">
+                <div class="maquina-number">Máquina Nº 6</div>
+            </a>
+        </div>
+        <div class="maquina">
+            <a href="dashboard_machine.html?maquina=7">
+                <img src="static/maquina.jpg" alt="Máquina 7">
+                <div class="maquina-number">Máquina Nº 7</div>
+            </a>
+        </div>
+        <div class="maquina">
+            <a href="dashboard_machine.html?maquina=8">
+                <img src="static/maquina.jpg" alt="Máquina 8">
+                <div class="maquina-number">Máquina Nº 8</div>
+            </a>
+        </div>
+        <div class="maquina">
+            <a href="dashboard_machine.html?maquina=9">
+                <img src="static/maquina.jpg" alt="Máquina 9">
+                <div class="maquina-number">Máquina Nº 9</div>
+            </a>
+        </div>
+        <div class="maquina">
+            <a href="dashboard_machine.html?maquina=10">
+                <img src="static/maquina.jpg" alt="Máquina 10">
+                <div class="maquina-number">Máquina Nº 10</div>
+            </a>
+        </div>
+    </div>
+
+    <button id="fetch-status">Traer Status</button>
+    <div class="status" id="status-display"></div>
+
+    <script>
+        document.getElementById('fetch-status').addEventListener('click', function() {
+            fetch('http://estancos.duckdns.org/status')  // Reemplaza con la URL de tu servidor ESP32
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la red: ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Mostrar el estado en el HTML
+                    document.getElementById('status-display').innerText = JSON.stringify(data, null, 2);
+                    document.getElementById('status-display').style.display = 'block';  // Mostrar el div
+                })
+                .catch(error => {
+                    document.getElementById('status-display').innerText = 'Error al obtener el estado: ' + error.message;
+                    document.getElementById('status-display').style.display = 'block';  // Mostrar el div
+                });
+        });
+    </script>
+</body>
+</html>
